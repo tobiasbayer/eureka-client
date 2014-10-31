@@ -18,6 +18,4 @@
                                   :securePort 443
                                   :dataCenterInfo {:name "MyOwn"}}}})) => anything))
 
-(fact "it sends heartbeats")
-
 
