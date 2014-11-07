@@ -6,13 +6,13 @@ At the moment registering an app and sending heartbeats is supported.
 [![Build Status](https://travis-ci.org/codebrickie/eureka-client.svg?branch=master)](https://travis-ci.org/codebrickie/eureka-client)
 
 Latest release version:
-[![Clojars Project](http://clojars.org/org.clojars.codebrickie/eureka-client/latest-version.svg)](http://clojars.org/org.clojars.codebrickie/eureka-client)
+[![Clojars Project](http://clojars.org/eureka-client/latest-version.svg)](http://clojars.org/eureka-client)
 
 ## Usage
 
 Include eureka-client as a dependency in your ```project.clj```:
 ```
-[org.clojars.codebrickie/eureka-client "0.1.0"]
+[eureka-client "0.1.1"]
 ```
 
 To build from source, run the following commands:
