@@ -1,4 +1,4 @@
-(defproject eureka-client "0.1.0-SNAPSHOT"
+(defproject org.clojars.codebrickie/eureka-client "0.1.0"
   :description "A client for Netflix Eureka service discovery servers"
   :url "http://github.com/codebrickie/eureka-client"
   :license {:name "Eclipse Public License"
