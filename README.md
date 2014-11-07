@@ -3,6 +3,9 @@
 This library aims to be a Clojure client for Netflix' Eureka service registry.
 At the moment registering an app and sending heartbeats is supported.
 
+Latest release version:
+[![Clojars Project](http://clojars.org/org.clojars.codebrickie/eureka-client/latest-version.svg)](http://clojars.org/org.clojars.codebrickie/eureka-client)
+
 ## Usage
 
 Include eureka-client as a dependency in your ```project.clj```:
