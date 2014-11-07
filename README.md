@@ -6,6 +6,7 @@ At the moment registering an app and sending heartbeats is supported.
 [![Build Status](https://travis-ci.org/codebrickie/eureka-client.svg?branch=master)](https://travis-ci.org/codebrickie/eureka-client)
 
 Latest release version:
+
 [![Clojars Project](http://clojars.org/eureka-client/latest-version.svg)](http://clojars.org/eureka-client)
 
 ## Usage
