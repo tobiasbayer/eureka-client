@@ -7,7 +7,7 @@ At the moment registering an app and sending heartbeats is supported.
 
 Include eureka-client as a dependency in your ```project.clj```:
 ```
-[codebrickie/eureka-client "0.1.0"]
+[org.clojars.codebrickie/eureka-client "0.1.0"]
 ```
 
 To build from source, run the following commands:
