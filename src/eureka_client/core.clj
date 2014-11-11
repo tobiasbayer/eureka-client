@@ -1,5 +1,6 @@
 (ns eureka-client.core
-  (:require [clj-http.client :as http]))
+  (:require [clj-http.client :as http]
+            [clojure.set :refer [rename-keys]]))
 
 (def request-opts {:content-type :json
                    :socket-timeout 1000
@@ -46,3 +47,13 @@
                                :dataCenterInfo {:name "MyOwn"}}}))
       (tick 30000 send-heartbeat eureka-host eureka-port app-id host-id))))
 
+(defn find-instances
+  "Finds all instances for a given app id registered with the Eureka server"
+  [eureka-host eureka-port app-id]
+  (->> (http/get (app-path eureka-host eureka-port  app-id) (assoc request-opts :as :json))
+       :body
+       :application
+       :instance
+       (map #(select-keys % [:ipAddr :port]))
+       (map #(rename-keys % {:ipAddr :ip}))
+       (map #(assoc % :port (read-string (:$ (:port %)))))))
