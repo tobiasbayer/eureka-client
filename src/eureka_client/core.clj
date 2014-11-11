@@ -25,7 +25,7 @@
             request-opts))
 
 (defn register
-  "Registers the app-id at the Eureka server and sends a heartbeat every 20 seconds"
+  "Registers the app-id at the Eureka server and sends a heartbeat every 30 seconds"
   [eureka-host eureka-port app-id own-port]
   (do
     (http/post (app-path eureka-host eureka-port app-id)
@@ -40,4 +40,4 @@
                              :port own-port
                              :securePort 443
                              :dataCenterInfo {:name "MyOwn"}}}))
-    (tick 20000 send-heartbeat eureka-host eureka-port app-id)))
+    (tick 30000 send-heartbeat eureka-host eureka-port app-id)))
