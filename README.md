@@ -2,6 +2,7 @@
 
 This library aims to be a Clojure client for Netflix' Eureka service registry.
 At the moment registering an app and sending heartbeats is supported.
+Instances of an app can be retrieved.
 
 [![Build Status](https://travis-ci.org/codebrickie/eureka-client.svg?branch=master)](https://travis-ci.org/codebrickie/eureka-client)
 
@@ -31,6 +32,13 @@ Register your service "my-service-name" with port 10100 at the Eureka server at 
 ```
 
 After registering, a heartbeat will automatically be sent every 20 seconds.
+
+Request all instances for "my-service-name" (after two instances have been registered):
+```
+(eureka/find-instances "localhost" 8761 "my-service-name")
+
+; => '({:ip "192.168.178.38" :port 10100} {:ip "192.168.178.38" :port 11100})
+```
 
 ## Contributing
 Contributions are welcome!
