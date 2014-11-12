@@ -20,7 +20,7 @@
                                   :securePort 443
                                   :dataCenterInfo {:name "MyOwn"}}}})) => anything))
 
-(fact "it finds all instances of an app"
+(fact "it finds all instances of an app (second call cached)"
   (find-instances "localhost" 8761 "myId") => '({:ip "192.168.178.38" :port 10100}
                                                 {:ip "192.168.178.38" :port 11100})
     (provided
@@ -83,4 +83,9 @@
                                                                    :status "UP"
                                                                    :actionType "ADDED"
                                                                    :countryId 1
-                                                                   :app "MYID"}]}}}))
+                                                                   :app "MYID"}]}}})
+
+  (find-instances "localhost" 8761 "myId") => '({:ip "192.168.178.38" :port 10100}
+                                                {:ip "192.168.178.38" :port 11100})
+    (provided
+      (http/get "http://localhost:8761/eureka/apps/myId" anything) => anything :times 0))
