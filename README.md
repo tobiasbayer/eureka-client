@@ -14,7 +14,7 @@ Latest release version:
 
 Include eureka-client as a dependency in your ```project.clj```:
 ```
-[eureka-client "0.1.1"]
+[eureka-client "0.2.0"]
 ```
 
 To build from source, run the following commands:
