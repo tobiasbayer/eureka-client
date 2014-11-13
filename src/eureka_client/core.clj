@@ -3,12 +3,12 @@
             [clojure.set :refer [rename-keys]]
             [clojure.core.cache :as cache]))
 
-(def request-opts {:content-type :json
-                   :socket-timeout 1000
-                   :conn-timeout 1000
-                   :accept :json})
+(def ^:private request-opts {:content-type :json
+                             :socket-timeout 1000
+                             :conn-timeout 1000
+                             :accept :json})
 
-(def instances-cache (atom (cache/ttl-cache-factory {} :ttl 30000)))
+(def ^:private instances-cache (atom (cache/ttl-cache-factory {} :ttl 30000)))
 
 (defn- tick [ms f & args]
   (future
