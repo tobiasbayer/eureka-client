@@ -31,7 +31,8 @@
             request-opts))
 
 (defn register
-  "Registers the app-id at the Eureka server and sends a heartbeat every 30 seconds"
+  "Registers the app-id at the Eureka server and sends a heartbeat every 30
+   seconds."
   [eureka-host eureka-port app-id own-port]
   (let [host-id (str (.getHostAddress (java.net.InetAddress/getLocalHost)) "-" (rand-int 10000))]
     (http/post (app-path eureka-host eureka-port app-id)

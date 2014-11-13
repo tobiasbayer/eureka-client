@@ -7,4 +7,5 @@
                  [clj-http "1.0.1" :exclusions [com.fasterxml.jackson.core/jackson-core]]
                  [org.clojure/core.cache "0.6.4"]]
   :profiles {:dev {:dependencies [[midje "1.6.3"]]
-                   :plugins [[lein-midje "3.1.3"]]}})
+                   :plugins [[lein-midje "3.1.3"]
+                             [codox "0.8.10"]]}})
