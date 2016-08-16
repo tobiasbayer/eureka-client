@@ -32,12 +32,28 @@ Register your service "my-service-name" with port 10100 at the Eureka server at 
 ```
 
 After registering, a heartbeat will automatically be sent every 20 seconds.
+The instance ID of the registered service is returned.
 
 Request all instances for "my-service-name" (after two instances have been registered):
 ```
 (eureka/find-instances "localhost" 8761 "my-service-name")
 
 ; => '({:ip "192.168.178.38" :port 10100} {:ip "192.168.178.38" :port 11100})
+```
+
+Delete instance "instance-id" of service "my-service-name" from the eureka server:
+```
+(eureka/delete-instance "localhost" 8761 "my-service-name" "instance-id")
+
+; => true
+```
+Returns success state.
+
+Change the server url of the eureka server. Standard is /eureka/v2/apps
+```
+(eureka/alter-server-path "/eureka-server/apps")
+
+; => "/eureka-server/apps"
 ```
 
 ## Contributing
