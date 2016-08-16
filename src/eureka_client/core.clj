@@ -54,7 +54,7 @@
 
 (defn register
   "Registers the app-id at the Eureka server and sends a heartbeat every 30
-   seconds."
+   seconds. Returns the instanceId to identify the service."
   [eureka-host eureka-port app-id own-port]
   (let [host-id (str (.getHostAddress (java.net.InetAddress/getLocalHost)) "-" (rand-int 10000))]
     (http/post (app-path eureka-host eureka-port app-id)
@@ -69,7 +69,8 @@
                                :port {:$ own-port, "@enabled" "true"}
                                :securePort {:$ 443, "@enabled" "true"}
                                :dataCenterInfo {"@class" "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo", :name "MyOwn"}}}))
-      (tick 30000 send-heartbeat eureka-host eureka-port app-id host-id)))
+      (tick 30000 send-heartbeat eureka-host eureka-port app-id host-id)
+    host-id))
 
 (defn find-instances
   "Finds all instances for a given app id registered with the Eureka server.
@@ -82,3 +83,11 @@
   [new-server-path]
   (alter-var-root (var server-path)
                   (constantly new-server-path)))
+
+(defn delete-instance
+  "Deletes the instance with the given instance-id from the eureka server. Return success state."
+  [eureka-host eureka-port app-id instance-id]
+  (try (do (http/delete (instance-path eureka-host eureka-port app-id instance-id))
+           true)
+       (catch clojure.lang.ExceptionInfo e
+              false)))

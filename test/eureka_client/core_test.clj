@@ -3,7 +3,7 @@
             [eureka-client.core :refer :all]
             [clj-http.client :as http]))
 
-(def example-response
+(def example-instance-response
   {:orig-content-encoding nil
    :request-time 8
    :status 200
@@ -64,6 +64,23 @@
                                     :countryId 1
                                     :app "MYID"}]}}})
 
+(def example-delete-response
+  {:request-time 13,
+   :repeatable? false,
+   :streaming? false,
+   :chunked? false,
+   :headers {"Server" "Apache-Coyote/1.1",
+             "Vary" "Accept-Encoding",
+             "Content-Type" "application/xml",
+             "Content-Length" "0",
+             "Date" "Tue, 16 Aug 2016 12:19:21 GMT",
+             "Connection" "close"},
+   :orig-content-encoding nil,
+   :status 200,
+   :length 0,
+   :body "",
+   :trace-redirects ["http://localhost:8080/eureka/v2/apps/blubber/127.0.1.1-2874"]})
+
 (def example-request
   {:form-params {:instance
                  {:hostName (str (.getHostAddress (java.net.InetAddress/getLocalHost)) "-" 1)
@@ -88,12 +105,17 @@
   (find-instances "localhost" 8761 "myId") => '({:ip "192.168.178.38" :port 10100}
                                                 {:ip "192.168.178.38" :port 11100})
     (provided
-      (http/get "http://localhost:8761/eureka/v2/apps/myId" anything) => example-response)
+      (http/get "http://localhost:8761/eureka/v2/apps/myId" anything) => example-instance-response)
 
   (find-instances "localhost" 8761 "myId") => '({:ip "192.168.178.38" :port 10100}
                                                 {:ip "192.168.178.38" :port 11100})
     (provided
       (http/get "http://localhost:8761/eureka/v2/apps/myId" anything) => anything :times 0))
+
+(fact "it deletes an instance from eureka"
+      (delete-instance "localhost" 8761 "myId" "127.0.1.1-4242") => true
+      (provided (http/delete "http://localhost:8761/eureka/v2/apps/myId/127.0.1.1-4242")
+                => example-delete-response))
 
 
 (with-state-changes [(before :facts (alter-server-path "/eureka/apps"))]
@@ -109,7 +131,7 @@
                           (find-instances "localhost" 8761 "otherId") => '({:ip "192.168.178.38" :port 10100}
                                                                          {:ip "192.168.178.38" :port 11100})
                           (provided
-                            (http/get "http://localhost:8761/eureka/apps/otherId" anything) => example-response)
+                            (http/get "http://localhost:8761/eureka/apps/otherId" anything) => example-instance-response)
 
                           (find-instances "localhost" 8761 "otherId") => '({:ip "192.168.178.38" :port 10100}
                                                                          {:ip "192.168.178.38" :port 11100})
